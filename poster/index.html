@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Real-Time Voice Agent over WebRTC</title>
+<link rel="stylesheet" href="poster.css">
+<style>
+  .poster { --accent: #FB923C; --accent2: #F43F5E; }
+  .stage { position: relative; width: 620px; }
+  .pipe { width: 580px; margin-left: 40px; }
+  .pipe-body { position: relative; padding: 26px 28px 30px; }
+  .pipe-body::before { content: ''; position: absolute; left: 55px; top: 60px; bottom: 74px; width: 2px;
+    background: linear-gradient(var(--accent2), var(--accent)); opacity: .55; }
+  .step { position: relative; display: grid; grid-template-columns: 56px 1fr auto; align-items: center; column-gap: 18px; padding: 13px 0; }
+  .dot { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; color: var(--accent);
+    background: #1A1730; border: 1.5px solid color-mix(in srgb, var(--accent) 55%, transparent); position: relative; z-index: 1; }
+  .step.io .dot { color: #0A0F1E; background: linear-gradient(135deg, var(--accent2), var(--accent)); border: 0; }
+  .lbl { font: 600 21px 'Space Grotesk'; }
+  .det { font: 500 15px 'JetBrains Mono'; color: var(--muted); margin-top: 4px; }
+  .tg { font: 600 13px 'JetBrains Mono'; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--line); color: #CDD4E5; background: rgba(255,255,255,.04); }
+  .tg.g { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .loop { position: absolute; left: 0; top: 96px; bottom: 120px; width: 40px; border: 2px dashed color-mix(in srgb, var(--accent) 50%, transparent); border-right: 0; border-radius: 22px 0 0 22px; }
+  .loop::after { content: ''; position: absolute; right: -2px; top: -7px; border: 7px solid transparent; border-left: 11px solid color-mix(in srgb, var(--accent) 80%, transparent); }
+  .badge { position: absolute; right: -16px; bottom: -34px; padding: 16px 22px; border-radius: 18px; background: #16122A;
+    border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent); font: 600 18px 'Space Grotesk'; display: flex; gap: 10px; align-items: center; }
+  .badge s { text-decoration-thickness: 2px; text-decoration-color: var(--accent2); color: var(--muted); }
+  .badge b { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="grid"></div>
+
+  <div class="left">
+    <div class="eyebrow">AI Voice Agent · WebRTC</div>
+    <h1>Real-Time<br>Voice Agent<br>over <em>WebRTC</em></h1>
+    <p class="sub">My own audio pipeline from the phone to the AI and back, built without third-party call platforms.</p>
+    <ul class="feats">
+      <li>Flutter app streams the microphone over WebRTC to a FastAPI + aiortc server</li>
+      <li>Voice activity detection decides when you have finished speaking</li>
+      <li>Groq runs Whisper, Llama 3.3 70B and Orpheus for a fast spoken reply</li>
+    </ul>
+    <div class="chips">
+      <span class="chip hl">Flutter</span>
+      <span class="chip hl">WebRTC</span>
+      <span class="chip">FastAPI</span>
+      <span class="chip">aiortc</span>
+      <span class="chip">Groq</span>
+      <span class="chip">Whisper</span>
+      <span class="chip">Llama 3.3 70B</span>
+      <span class="chip">Orpheus TTS</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="stage">
+      <div class="loop"></div>
+      <div class="window pipe glow">
+        <div class="titlebar"><span></span><span></span><span></span><div class="ttl">voice pipeline</div></div>
+        <div class="pipe-body">
+          <div class="step io">
+            <div class="dot"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div>
+            <div><div class="lbl">You speak</div><div class="det">Flutter app · WebRTC audio</div></div>
+            <span class="tg">Flutter</span>
+          </div>
+          <div class="step">
+            <div class="dot"><svg class="ic" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg></div>
+            <div><div class="lbl">Audio reaches the server</div><div class="det">FastAPI + aiortc</div></div>
+            <span class="tg">WebRTC</span>
+          </div>
+          <div class="step">
+            <div class="dot"><svg class="ic" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <div><div class="lbl">Detects end of speech</div><div class="det">webrtcvad</div></div>
+            <span class="tg">VAD</span>
+          </div>
+          <div class="step">
+            <div class="dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg></div>
+            <div><div class="lbl">Speech to text</div><div class="det">Whisper large-v3 turbo</div></div>
+            <span class="tg g">Groq</span>
+          </div>
+          <div class="step">
+            <div class="dot"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></div>
+            <div><div class="lbl">Thinks of a reply</div><div class="det">Llama 3.3 70B</div></div>
+            <span class="tg g">Groq</span>
+          </div>
+          <div class="step io">
+            <div class="dot"><svg class="ic" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></div>
+            <div><div class="lbl">Speaks back in the app</div><div class="det">Orpheus TTS → WebRTC</div></div>
+            <span class="tg g">Groq</span>
+          </div>
+        </div>
+      </div>
+      <div class="badge glow"><s>LiveKit</s><s>Twilio</s><b>Own pipeline</b></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
